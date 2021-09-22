@@ -1,22 +1,5 @@
 {
   "nodes": {
-    "asissrc": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1582989541,
-        "narHash": "sha256-26kmPF8uksCOHc5yqJZ8DW7rS56fClff5cIMj0x5+MI=",
-        "owner": "simonjwright",
-        "repo": "asis",
-        "rev": "75eabc75aa5f7f1559524153f209601574f32b5c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "simonjwright",
-        "ref": "fsf",
-        "repo": "asis",
-        "type": "github"
-      }
-    },
     "aunitsrc": {
       "flake": false,
       "locked": {
@@ -116,7 +99,6 @@
     },
     "root": {
       "inputs": {
-        "asissrc": "asissrc",
         "aunitsrc": "aunitsrc",
         "gnat_utilsrc": "gnat_utilsrc",
         "gnatcoll-coresrc": "gnatcoll-coresrc",

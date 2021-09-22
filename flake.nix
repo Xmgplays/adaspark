@@ -58,17 +58,17 @@
       repo = "gnat_util";
     };
 
-    asissrc = {
-      flake = false;
-      type = "github";
-      owner = "simonjwright";
-      repo = "asis";
-      ref = "fsf";
-    };
+    # asissrc = {
+    #   flake = false;
+    #   type = "github";
+    #   owner = "simonjwright";
+    #   repo = "asis";
+    #   ref = "gcc-10.3.0";
+    # };
   };
 
   outputs = { self, nixpkgs, xmladasrc, gprbuildsrc, gprconfig_kbsrc, aunitsrc
-    , gnat_utilsrc, asissrc, gnatcoll-coresrc }:
+    , gnat_utilsrc, gnatcoll-coresrc }:
     with import nixpkgs { system = "x86_64-linux"; };
 
     let
@@ -76,8 +76,8 @@
       sparksrc = fetchFromGitHub {
         owner = "adacore";
         repo = "spark2014";
-        rev = "baf358da9a3a6557e39283a216e839e74eaeff3a";
-        sha256 = "CJRO1Bd9S7ADqDlTzeG2HmAxse+StsM4aUWDsrwjsTQ=";
+        rev = "f2e0d988fe297374acabdb50dbd4daf30f91cb25";
+        sha256 = "Xgi1vbR2EDnz+o1Pdfo8iN/7FURcr8IEpGeJbiCIa+g=";
         fetchSubmodules = true;
       };
 
@@ -94,7 +94,7 @@
 
       # Customized environment supporting gprbuild search paths.
 
-      base_env = gcc10Stdenv;
+      base_env = gcc11Stdenv;
 
       mk_gpr_path = inputs:
         lib.strings.makeSearchPath "share/gpr" inputs + ":"
@@ -103,7 +103,7 @@
       adaenv_func = include_gprbuild:
         let
           maybe_gpr = if include_gprbuild then [ gprbuild ] else [ ];
-          core = (overrideCC base_env gnat10).override {
+          core = (overrideCC base_env gnat11).override {
             name = "adaenv" + (if include_gprbuild then "-boot" else "");
             initialPath = base_env.initialPath ++ maybe_gpr;
           };
@@ -203,6 +203,7 @@
           ocamlPackages.ocplib-simplex
           ocamlPackages.findlib
           ocamlPackages.num
+          ocamlPackages.yojson
           gnatcoll-core
           python
           pythonPackages.sphinx
@@ -214,7 +215,7 @@
         ];
         sourceRoot = "source";
         configurePhase = ''
-          ln -s ../../gcc-10.3.0/gcc/ada gnat2why/gnat_src \
+          ln -s ../../gcc-11.1.0/gcc/ada gnat2why/gnat_src \
           && make setup
         '';
         installPhase = ''
@@ -240,28 +241,28 @@
           gnatsrc # list here to get local uncompressed copy
         ];
         sourceRoot = "source";
-        GCC_SRC_BASE = "gcc-10.2.0";
+        GCC_SRC_BASE = "gcc-11.1.0";
         installPhase = ''
           make prefix=$prefix install
         '';
       };
 
-      asis = adaenv.mkDerivation {
-        name = "ASIS";
-        version = "gcc-10.1.0";
-        src = asissrc;
-        buildInputs = [ xmlada aunit gnat_util gnatcoll-core which ];
-        postUnpack = ''
-          make -C source xsetup-snames
-          cp -nr source/gnat/* source/asis/
-        '';
-        buildPhase = ''
-          make all tools
-        '';
-        installPhase = ''
-          make prefix=$prefix install install-tools
-        '';
-      };
+      # asis = adaenv.mkDerivation {
+      #   name = "ASIS";
+      #   version = "gcc-10.1.0";
+      #   src = asissrc;
+      #   buildInputs = [ xmlada aunit gnat_util gnatcoll-core which ];
+      #   postUnpack = ''
+      #     make -C source xsetup-snames
+      #     cp -nr source/gnat/* source/asis/
+      #   '';
+      #   buildPhase = ''
+      #     make all tools
+      #   '';
+      #   installPhase = ''
+      #     make prefix=$prefix install install-tools
+      #   '';
+      # };
 
       alire = adaenv.mkDerivation rec {
         name = "alire";
@@ -284,7 +285,8 @@
       # HERE BEGINS THE THINGS THAT THIS FLAKE PROVIDES:
     in {
       # Derivations (create an environment with `nix shell`)
-      inherit xmlada gnatcoll-core asis gnat_util aunit;
+      inherit xmlada gnatcoll-core gnat_util aunit;
+      # asis 
       gpr = gprbuild;
       gnat = adaenv.cc;
       spark = spark2014;
@@ -306,17 +308,18 @@
         name = "adaspark";
         paths = [
           self.gnat
-          gnat10.cc # need the original compiler on the path for gprconfig to work
+          gnat11.cc # need the original compiler on the path for gprconfig to work
           self.gpr
           self.spark
-          self.asis
+          # self.asis
           self.alr
         ];
       };
 
       packages.x86_64-linux = {
         inherit (self)
-          xmlada gnatcoll-core gnat gpr spark adaspark gnat_util aunit asis;
+        xmlada gnatcoll-core gnat gpr spark adaspark gnat_util aunit;
+        # asis
       };
       defaultPackage.x86_64-linux = self.packages.x86_64-linux.adaspark;
       devShell.x86_64-linux = mkShell {
@@ -329,7 +332,7 @@
 
       # Put the adaenv function in the flake so other users can download it and use its
       # mkDerivation function and other features.
-      inherit adaenv fetchFromGitHub fetchgit fetchtarball;
+      inherit adaenv; # fetchFromGitHub fetchgit fetchtarball;
     };
 }
 
