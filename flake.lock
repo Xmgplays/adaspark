@@ -1,5 +1,106 @@
 {
   "nodes": {
+    "asissrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1582989541,
+        "narHash": "sha256-26kmPF8uksCOHc5yqJZ8DW7rS56fClff5cIMj0x5+MI=",
+        "owner": "simonjwright",
+        "repo": "asis",
+        "rev": "75eabc75aa5f7f1559524153f209601574f32b5c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "simonjwright",
+        "ref": "fsf",
+        "repo": "asis",
+        "type": "github"
+      }
+    },
+    "aunitsrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1605013916,
+        "narHash": "sha256-Vjs8xOXxVRt40L5nXFiXgZWjvgvYgv3vxF8kpN3700I=",
+        "owner": "AdaCore",
+        "repo": "aunit",
+        "rev": "704633566d1a3af9976b8a6252d2847bf4f76b3c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AdaCore",
+        "ref": "21-sustained",
+        "repo": "aunit",
+        "type": "github"
+      }
+    },
+    "gnat_utilsrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1589467756,
+        "narHash": "sha256-wzfKNDmxVq69MKk/D4w2Zi9s/3NtBUQmkNxz7XctA7E=",
+        "owner": "simonjwright",
+        "repo": "gnat_util",
+        "rev": "e71e5414ea8e0fd128f4f16b68c46e6918e9e5e6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "simonjwright",
+        "repo": "gnat_util",
+        "type": "github"
+      }
+    },
+    "gnatcoll-coresrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1626726852,
+        "narHash": "sha256-UUX1C6Rk/c4zrzpJ4xnpIG0cy0BfIPhqxW8qcBOv1yc=",
+        "owner": "AdaCore",
+        "repo": "gnatcoll-core",
+        "rev": "0cf7754187b3d880d632bb006483e21a551f42b7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AdaCore",
+        "ref": "21-sustained",
+        "repo": "gnatcoll-core",
+        "type": "github"
+      }
+    },
+    "gprbuildsrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1626727037,
+        "narHash": "sha256-BqLyhtfIx0R9x/pNavSV8Ww8KbNZfjxza61GxMHaKQI=",
+        "owner": "AdaCore",
+        "repo": "gprbuild",
+        "rev": "8d4d3d77c3ca168b2a50633b4ad0ca8781f43071",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AdaCore",
+        "ref": "21-sustained",
+        "repo": "gprbuild",
+        "type": "github"
+      }
+    },
+    "gprconfig_kbsrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1626727064,
+        "narHash": "sha256-7SfCD9JcHA+F/9bBEMh3q3y6W4T+bU9zSm3Y4OI6hAg=",
+        "owner": "AdaCore",
+        "repo": "gprconfig_kb",
+        "rev": "72b2085c15cd36f656ebcc6a43e57b2cdb9758d5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AdaCore",
+        "ref": "21-sustained",
+        "repo": "gprconfig_kb",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1631785487,
@@ -15,7 +116,31 @@
     },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "asissrc": "asissrc",
+        "aunitsrc": "aunitsrc",
+        "gnat_utilsrc": "gnat_utilsrc",
+        "gnatcoll-coresrc": "gnatcoll-coresrc",
+        "gprbuildsrc": "gprbuildsrc",
+        "gprconfig_kbsrc": "gprconfig_kbsrc",
+        "nixpkgs": "nixpkgs",
+        "xmladasrc": "xmladasrc"
+      }
+    },
+    "xmladasrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1626726978,
+        "narHash": "sha256-09MPr+heAJr3b3DnvU7gRfgG1ictp/uCn2xMrSPs5BA=",
+        "owner": "AdaCore",
+        "repo": "xmlada",
+        "rev": "3a251417135e0fa1039ded325d381854966e54a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AdaCore",
+        "ref": "21-sustained",
+        "repo": "xmlada",
+        "type": "github"
       }
     }
   },
