@@ -4,71 +4,71 @@
     # nixos unstable branch
     nixpkgs.url = "nixpkgs";
 
-      # xmlada library needed for gprbuild. Built with bootstrap.
+    # xmlada library needed for gprbuild. Built with bootstrap.
 
-      xmladasrc = {
-        flake = false;
-        type = "github";
-        owner = "AdaCore";
-        repo = "xmlada";
-        ref = "21-sustained"; # version 21
-      };
+    xmladasrc = {
+      flake = false;
+      type = "github";
+      owner = "AdaCore";
+      repo = "xmlada";
+      ref = "21-sustained"; # version 21
+    };
 
-      # gprbuild tool
+    # gprbuild tool
 
-      gprbuildsrc = {
-        flake = false;
-        type = "github";
-        owner = "AdaCore";
-        repo = "gprbuild";
-        ref = "21-sustained"; # version 21
-      };
+    gprbuildsrc = {
+      flake = false;
+      type = "github";
+      owner = "AdaCore";
+      repo = "gprbuild";
+      ref = "21-sustained"; # version 21
+    };
 
-      gprconfig_kbsrc = {
-        flake = false;
-        type = "github";
-        owner = "AdaCore";
-        repo = "gprconfig_kb";
-        ref = "21-sustained"; # version 21
-      };
+    gprconfig_kbsrc = {
+      flake = false;
+      type = "github";
+      owner = "AdaCore";
+      repo = "gprconfig_kb";
+      ref = "21-sustained"; # version 21
+    };
 
-      # gnatcoll-core
+    # gnatcoll-core
 
-      gnatcoll-coresrc = {
-        flake = false;
-        type = "github";
-        owner = "AdaCore";
-        repo = "gnatcoll-core";
-        ref = "21-sustained"; # version 21
-      };
+    gnatcoll-coresrc = {
+      flake = false;
+      type = "github";
+      owner = "AdaCore";
+      repo = "gnatcoll-core";
+      ref = "21-sustained"; # version 21
+    };
 
+    # ASIS tools like gnattest, gnatcheck, etc.
+    aunitsrc = {
+      flake = false;
+      type = "github";
+      owner = "AdaCore";
+      repo = "aunit";
+      ref = "21-sustained"; # tag 20.2
+    };
 
-      # ASIS tools like gnattest, gnatcheck, etc.
-      aunitsrc = {
-        flake = false;
-        type = "github";
-        owner = "AdaCore";
-        repo = "aunit";
-        ref = "21-sustained"; # tag 20.2
-      };
+    gnat_utilsrc = {
+      flake = false;
+      type = "github";
+      owner = "simonjwright";
+      repo = "gnat_util";
+    };
 
-      gnat_utilsrc = {
-        flake = false;
-        type = "github";
-        owner = "simonjwright";
-        repo = "gnat_util";
-      };
-    
-        asissrc = {
-        flake = false;
-          type = "github";
-          owner = "simonjwright";
-          repo = "asis";
-          ref = "fsf";
-        };
+    asissrc = {
+      flake = false;
+      type = "github";
+      owner = "simonjwright";
+      repo = "asis";
+      ref = "fsf";
+    };
   };
 
-  outputs = { self, nixpkgs, xmladasrc, gprbuildsrc, gprconfig_kbsrc, aunitsrc, gnat_utilsrc, asissrc, gnatcoll-coresrc }:
+  outputs = { self, nixpkgs, xmladasrc, gprbuildsrc, gprconfig_kbsrc, aunitsrc
+    , gnat_utilsrc, asissrc, gnatcoll-coresrc }:
     with import nixpkgs { system = "x86_64-linux"; };
 
     let
@@ -81,8 +81,7 @@
         fetchSubmodules = true;
       };
 
-      aliresrc = fetchFromGitHub 
-      {
+      aliresrc = fetchFromGitHub {
         owner = "alire-project";
         repo = "alire";
         rev = "e5b7d6f07fe8e776f43370fbb1fdf484e95c96de";
